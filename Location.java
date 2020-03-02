@@ -12,9 +12,7 @@ package tictactoe;
 public class Location {
     private int x;
     private int y;
-    
-    private boolean hasX = false;
-    private boolean hasO = false;
+    private boolean taken = false;
     
     public Location(int x, int y){
         this.x = x;
@@ -28,23 +26,12 @@ public class Location {
     public int getY() {
         return y;
     }
-
-    public boolean hasX() {
-        return hasX;
-    }
-
-    public void setHasX(boolean hasX) {
-        this.hasX = hasX;
-    }
-
-    public boolean hasO() {
-        return hasO;
-    }
-
-    public void setHasO(boolean hasO) {
-        this.hasO = hasO;
+    
+    public boolean issTTaken(){
+        return taken;
     }
     
-    
-    
+    public void setTaken(boolean taken){
+        this.taken = taken;
+    }
 }
