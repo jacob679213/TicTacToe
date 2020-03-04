@@ -10,6 +10,8 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JPanel;
@@ -19,9 +21,14 @@ import javax.swing.JPanel;
  * method, for the main method? Its hard to explain. 
  * @author Jehcoob
  */
-class World extends JPanel implements MouseListener{
+
+public class World extends JPanel implements MouseListener{
     private Timer timer;
     private final Location[][] positions;
+    ArrayList<Player> players = new ArrayList<>();
+    Scanner kb = new Scanner(System.in);
+    int turn = 1;
+    int playerCount;
     
 
     /**
@@ -29,6 +36,42 @@ class World extends JPanel implements MouseListener{
      */
     public World() {
         super();
+        
+        System.out.println("How many players will there be?");
+        boolean temp = true;
+        while(temp){
+            int playerNum = kb.nextInt();
+            if(playerNum == 0){
+                Enemy temp1 = new Enemy();
+                Enemy temp2 = new Enemy();
+
+                players.add(temp1);
+                players.add(temp1);
+                playerCount = playerNum;
+                temp = false;
+            }
+            else if(playerNum == 1){
+                User temp1 = new User();
+                Enemy temp2 = new Enemy();
+
+                players.add(temp1);
+                players.add(temp1);
+                playerCount = playerNum;
+                temp = false;
+            }
+            else if(playerNum == 2){
+                User temp1 = new User();
+                User temp2 = new User();
+            
+                players.add(temp1);
+                players.add(temp1);
+                playerCount = playerNum;
+                temp = false;
+            }
+            else{
+                System.out.println("Invalad Number");
+            }
+        }
         this.positions = new Location[3][3];
         timer = new Timer();
         timer.scheduleAtFixedRate(new ScheduleTask(), 100, 1000/12);
@@ -62,6 +105,23 @@ class World extends JPanel implements MouseListener{
         g.fillRect(250, 250, 300, 5);
         g.fillRect(250, 350, 300, 5);
         
+        boolean[][] temp1 = players.get(0).getPos();
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 3; j++){
+                if(temp1[i][j]){
+                    positions[i][j].drawX(g);
+                }
+            }
+        }
+        
+        boolean[][] temp2 = players.get(1).getPos();
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 3; j++){
+                if(temp2[i][j]){
+                    positions[i][j].drawO(g);
+                }
+            }
+        }
     }
 
 
@@ -133,7 +193,30 @@ class World extends JPanel implements MouseListener{
             for(int j = 0; j < positions[i].length; j++){
                 Location temp = positions[i][j];
                 if(e.getX() > temp.getX() && e.getX() < temp.getX() + 100 && e.getY() < temp.getY() && e.getY() > temp.getY() - 100){
-                    System.out.println("Mouse clicked in position ("+i+", "+j+")");
+                    
+                    if(playerCount == 2){
+                        if(turn == 1){
+                            if(!temp.isTaken()){
+                                players.get(0).newPos(i, j);
+                                temp.setTaken(true);
+                                turn = 2;
+                            }
+                            else{
+                                System.out.println("This spot is taken");
+                            }
+                        }
+                        else{
+                            if(!temp.isTaken()){
+                                players.get(1).newPos(i, j);
+                                temp.setTaken(true);
+                                turn = 1;
+                            }
+                            else{
+                                System.out.println("This spot is taken");
+                            }
+                        }
+                        System.out.println("Mouse clicked in position ("+i+", "+j+")");
+                    }
                 }
                 
             }

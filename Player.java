@@ -29,4 +29,8 @@ public class Player {
     public void newPos(int x, int y){
         positions[x][y] = true;
     }
+    
+    public boolean[][] getPos(){
+        return this.positions;
+    }
 }

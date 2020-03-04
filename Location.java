@@ -5,6 +5,8 @@
  */
 package tictactoe;
 
+import java.awt.Graphics;
+
 /**
  *This class is just used to store a square in the game
  * @author 679213
@@ -18,6 +20,14 @@ public class Location {
         this.x = x;
         this.y = y;
     }
+    
+    public void drawX(Graphics g){
+        g.drawString("X", x+50, y-50);
+    }
+    
+    public void drawO(Graphics g){
+        g.drawString("O", x+50, y-50);
+    }
 
     public int getX() {
         return x;
@@ -27,7 +37,7 @@ public class Location {
         return y;
     }
     
-    public boolean issTTaken(){
+    public boolean isTaken(){
         return taken;
     }
     
