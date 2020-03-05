@@ -42,20 +42,22 @@ public class World extends JPanel implements MouseListener{
         while(temp){
             int playerNum = kb.nextInt();
             if(playerNum == 0){
-                Enemy temp1 = new Enemy();
-                Enemy temp2 = new Enemy();
+                Enemy temp1 = new Enemy(3);
+                Enemy temp2 = new Enemy(3);
 
                 players.add(temp1);
-                players.add(temp1);
+                players.add(temp2);
                 playerCount = playerNum;
                 temp = false;
             }
             else if(playerNum == 1){
+                System.out.println("Choose a dificulty: ");
+                int dificulty = kb.nextInt();
                 User temp1 = new User();
-                Enemy temp2 = new Enemy();
+                Enemy temp2 = new Enemy(dificulty);
 
                 players.add(temp1);
-                players.add(temp1);
+                players.add(temp2);
                 playerCount = playerNum;
                 temp = false;
             }
@@ -64,7 +66,7 @@ public class World extends JPanel implements MouseListener{
                 User temp2 = new User();
             
                 players.add(temp1);
-                players.add(temp1);
+                players.add(temp2);
                 playerCount = playerNum;
                 temp = false;
             }
@@ -122,8 +124,26 @@ public class World extends JPanel implements MouseListener{
                 }
             }
         }
+        
+        for(int i = 0; i < players.size(); i++){
+            if(players.get(i).checkWin()){
+                System.out.println("Player number " + (i+1) + " has won the game!");
+                clearGame();
+            }
+        }
     }
-
+    
+    public void clearGame(){
+            for(int i = 0; i < players.size(); i++){
+                    players.get(i).clearPos();
+                }
+                for(int i = 0; i < positions.length; i++){
+                    for(int j = 0; j < positions[i].length; j++){
+                        positions[i][j].setTaken(false);
+                    }
+                }
+                repaint();
+        }
 
     /**
      * Runs whenever the Timer is called, and allows the frame to repaint/update itself
@@ -142,8 +162,8 @@ public class World extends JPanel implements MouseListener{
      */
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()){
-            case KeyEvent.VK_Q:
-                //code block
+            case KeyEvent.VK_C:
+                clearGame();
                 break;
         }
     }

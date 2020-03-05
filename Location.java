@@ -22,11 +22,15 @@ public class Location {
     }
     
     public void drawX(Graphics g){
-        g.drawString("X", x+50, y-50);
+        if(this.taken){
+            g.drawString("X", x+50, y-50);
+        }
     }
     
     public void drawO(Graphics g){
-        g.drawString("O", x+50, y-50);
+        if(taken){
+            g.drawString("O", x+50, y-50);
+        }
     }
 
     public int getX() {

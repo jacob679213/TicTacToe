@@ -10,5 +10,9 @@ package tictactoe;
  * @author 679213
  */
 public class Enemy extends Player{
-    
+    public Enemy(int dificulty){
+        if(dificulty == 1){}
+        if(dificulty == 2){}
+        if(dificulty == 3){}
+    }
 }
