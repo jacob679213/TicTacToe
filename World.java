@@ -131,6 +131,19 @@ public class World extends JPanel implements MouseListener{
                 clearGame();
             }
         }
+        
+        int temp = 0;
+        for(int i = 0; i < positions.length; i++){
+            for(int j = 0; j < positions[i].length; j++){
+                if(positions[i][j].isTaken()){
+                    temp++;
+                }
+            }
+        }
+        if(temp == 9){
+            System.out.println("Cat Game!");
+            clearGame();
+        }
     }
     
     public void clearGame(){
@@ -236,6 +249,15 @@ public class World extends JPanel implements MouseListener{
                             }
                         }
                         System.out.println("Mouse clicked in position ("+i+", "+j+")");
+                    }
+                    if(playerCount == 1){
+                        if(turn == 1){
+                            if(!temp.isTaken()){
+                                players.get(0).newPos(i, j);
+                                temp.setTaken(true);
+                                players.get(1).turn(i, j, positions);
+                            }
+                        }
                     }
                 }
                 

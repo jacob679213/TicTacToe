@@ -10,5 +10,10 @@ package tictactoe;
  * @author 679213
  */
 public class User extends Player{
+
+    @Override
+    public void turn(int lastX, int lastY, Location[][] pos) {
+        System.out.println("Uh oh! It looks like you broke the game!");
+    }
     
 }
