@@ -16,6 +16,12 @@ public class Enemy extends Player{
         super();
         this.dif = dificulty;
         this.otherPos = new boolean[3][3];
+        
+        for(int i = 0; i < otherPos.length; i++){
+            for(int j = 0; j < otherPos[i].length; j++){
+               otherPos[i][j] = false;
+            }
+        }
     }
     
     /**
@@ -26,24 +32,26 @@ public class Enemy extends Player{
      * @param pos 
      */
     public void turn(int lastX, int lastY, Location[][] pos){
+        System.out.println("Enemy recieved data");
         this.otherPos[lastX][lastY] = true;
         
         if(this.dif == 1){
             boolean running = true;
             while(running){
+                System.out.println("While loop started");
                 int tempX = (int)(Math.random() * 3);
                 int tempY = (int)(Math.random() * 3);
-                
-                if(tempX == 3 || tempY == 3){
-                    System.out.print("AAAAAAAAAAAAAAAAAAAAAAAA");
-                }
+                System.out.println("("+ tempX + ", " + tempY + ")");
                 
                 if(super.getPos()[tempX][tempY] || this.otherPos[tempX][tempY]){
+                    System.out.println("This = " + super.getPos()[tempX][tempY] + ", Other = " + otherPos[tempX][tempY]);
+                    System.out.println("While loop restarting");
                     continue;
                 }
                 else{
                     super.newPos(tempX, tempY);
                     pos[tempX][tempY].setTaken(true);
+                    running = false;
                     break;
                 }
                 

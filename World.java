@@ -83,13 +83,13 @@ public class World extends JPanel implements MouseListener{
          //Setting up the Positions array
          
          positions[0][0] = new Location(250,450);
-         positions[0][1] = new Location(350,450);
-         positions[0][2] = new Location(450,450);
-         positions[1][0] = new Location(250,350);
+         positions[1][0] = new Location(350,450);
+         positions[2][0] = new Location(450,450);
+         positions[0][1] = new Location(250,350);
          positions[1][1] = new Location(350,350);
-         positions[1][2] = new Location(450,350);
-         positions[2][0] = new Location(250,250);
-         positions[2][1] = new Location(350,250);
+         positions[2][1] = new Location(450,350);
+         positions[0][2] = new Location(250,250);
+         positions[1][2] = new Location(350,250);
          positions[2][2] = new Location(450,250);
     }
 
@@ -155,6 +155,7 @@ public class World extends JPanel implements MouseListener{
                         positions[i][j].setTaken(false);
                     }
                 }
+                turn = 1;
                 repaint();
         }
 
@@ -251,11 +252,14 @@ public class World extends JPanel implements MouseListener{
                         System.out.println("Mouse clicked in position ("+i+", "+j+")");
                     }
                     if(playerCount == 1){
-                        if(turn == 1){
-                            if(!temp.isTaken()){
-                                players.get(0).newPos(i, j);
-                                temp.setTaken(true);
+                        if(!temp.isTaken()){
+                            players.get(0).newPos(i, j);
+                            temp.setTaken(true);
+                            turn++;
+                            
+                            if(turn < 9){
                                 players.get(1).turn(i, j, positions);
+                                turn++;
                             }
                         }
                     }
